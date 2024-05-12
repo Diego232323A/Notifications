@@ -22,7 +22,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          python webhook.py &
           
   Deploy:
     runs-on: ubuntu-latest
