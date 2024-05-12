@@ -26,7 +26,7 @@ jobs:
           
   Deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Deploy
         uses: mdelillo/ssh-server-action@v1
@@ -35,7 +35,7 @@ jobs:
           ssh-public-key: ""
 
       - name: Guardar estado
-        run: echo "nombre=${{ secrets.NAME }}" >> $GITHUB_STATE
+        run: echo "{nombre}={ secrets.NAME }" >> $GITHUB_STATE
 
       - name: Establecer salida
-        run: echo "nombre=${{ secrets.NAME }}" >> $GITHUB_OUTPUT
+        run: echo "{nombre}={ secrets.NAME }" >> $GITHUB_OUTPUT
