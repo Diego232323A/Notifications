@@ -1,26 +1,23 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
     branches: 
       - main
 
 jobs:
-  build-and-deploy:
-    runs-on: xubuntu-latest
+  format-code:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Install packages
-        run: npm ci
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - name: Bundle
-        run: npm run build
+      - name:
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.5' 
+      - run: python ./weebhook.py
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with: 
-          branch: main
-          folder: distq
+      - name: Run
+        uses: stefanzweifel/git-auto-commit-action@v5
