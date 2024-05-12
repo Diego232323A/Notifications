@@ -22,7 +22,20 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          python webhook.py
+          python webhook.py &
+          
+  Deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy
+        uses: mdelillo/ssh-server-action@v1
+        with:
+          ngrok-authtoken: ${{ secrets.NGROK_AUTH_TOKEN }}
+          ssh-public-key: ""
 
-      - name: autoCommit
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Guardar estado
+        run: echo "nombre=${{ secrets.NAME }}" >> $GITHUB_STATE
+
+      - name: Establecer salida
+        run: echo "nombre=${{ secrets.NAME }}" >> $GITHUB_OUTPUT
