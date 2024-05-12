@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11.5' 
-      - run: python weebhook.py
+      - run: python ../weebhook.py
 
       - name: Run
         uses: stefanzweifel/git-auto-commit-action@v5
