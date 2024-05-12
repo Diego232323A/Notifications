@@ -32,10 +32,4 @@ jobs:
         uses: mdelillo/ssh-server-action@v1
         with:
           ngrok-authtoken: ${{ secrets.NGROK_AUTH_TOKEN }}
-          ssh-public-key: ""
-
-      - name: Guardar estado
-        run: echo "{nombre}={ secrets.NAME }" >> $GITHUB_STATE
-
-      - name: Establecer salida
-        run: echo "{nombre}={ secrets.NAME }" >> $GITHUB_OUTPUT
+          ssh-public-key: ${{ secrets.PP}}
