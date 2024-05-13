@@ -33,9 +33,10 @@ jobs:
 
       - name: Install ngrok
         run: |
-          wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-          unzip ngrok-stable-linux-amd64.zip
-          ./ngrok update
+          curl -L -o ngrok.zip https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok.zip
+          sudo mv ngrok /usr/local/bin/ngrok
+          ngrok update
 
       - name: Expose local server with ngrok
         run: |
