@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repo
@@ -25,7 +25,7 @@ jobs:
 
           
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: [build]
     steps:
       - name: Checkout code
@@ -33,6 +33,7 @@ jobs:
 
       - name: Install ngrok
         run: |
-          curl -L -o ngrok.zip https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-          unzip ngrok.zip
-          sudo mv ngrok /usr/local/bin/ngrok
+          Invoke-WebRequest -Uri "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip" -OutFile "ngrok.zip"
+          Expand-Archive -Path "ngrok.zip" -DestinationPath "$env:USERPROFILE\ngrok"
+          Move-Item "$env:USERPROFILE\ngrok\ngrok.exe" "$env:USERPROFILE\ngrok"
+          $env:Path += ";$env:USERPROFILE\ngrok"
