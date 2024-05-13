@@ -22,6 +22,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
           
   deploy:
     runs-on: windows-latest
@@ -32,4 +33,12 @@ jobs:
 
       - name: Install ngrok
         run: |
-          Invoke-WebRequest -Uri "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-am
+          Invoke-WebRequest -Uri "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip" -OutFile "ngrok.zip"
+          Expand-Archive -Path "ngrok.zip" -DestinationPath "$env:USERPROFILE\ngrok"
+          Move-Item "$env:USERPROFILE\ngrok\ngrok.exe" "$env:USERPROFILE\ngrok"
+          $env:Path += ";$env:USERPROFILE\ngrok"
+
+      - name: Expose local server with ngrok
+        run: |
+          $env:USERPROFILE\ngrok\ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
+          $env:USERPROFILE\ngrok\ngrok http 3000
