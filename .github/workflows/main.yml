@@ -28,7 +28,7 @@ jobs:
     needs: [build]
     steps:
 
-      - name: Wait for ngrok tunnel to be established
+      - name: Wait for ngrok tunnel to be established.
         run: sleep 5
 
       - name: Get ngrok public URL
